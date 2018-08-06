@@ -11,16 +11,24 @@ findUserByCredentials = (username, password) =>
 
 findUserById = userId =>
     userModel.findById(userId)
-
+findUserByUsername = username => {
+    console.log(username)
+   return(userModel.find({username: username}));
+}
 findUserByIdExpanded = userId =>
     userModel
         .findById(userId)
         .populate('sections')
         .exec()
+registerUser = user => userModel.create(user);
+
+
 
 module.exports = {
     findUserByIdExpanded,
+    findUserByUsername,
     findUserById,
     findAllUsers,
-    findUserByCredentials
+    findUserByCredentials,
+    registerUser
 };

@@ -23,9 +23,31 @@ module.exports = app => {
             .enroll(currentUser._id, req.params['sectionId'])
             .then(status => res.sendStatus(200))
     }
+    createSectionForCourse = (req, res) => {
+        // if (req.session['currentUser'].role == 'ADMIN') {
+            sectionModel.createSection(req.body)
+                .then(r => res.send(r));
 
+        // } else {
+        //     res.send("not an admin");
+        // }
+
+    }
+
+    sectionEdit = (req, res) => {
+        sectionModel.sectionEdit(req.body);
+
+
+    }
+
+    sectionDelete = (req, res) =>
+        sectionModel.deleteSection(req.body);
+
+    app.delete('/api/section', sectionDelete)
+    app.put('/api/section', sectionEdit)
     app.put('/api/section/:sectionId/enroll', sectionEnroll)
     app.get('/api/section', findAllSections)
     app.get('/api/course/:cid/section', findSectionsForCourse)
     app.post('/api/section', createSection)
+    app.post('/api/course/:courseId/section', createSectionForCourse)
 }

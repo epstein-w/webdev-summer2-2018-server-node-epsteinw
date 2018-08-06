@@ -27,7 +27,19 @@ module.exports = app => {
         }
     }
 
+    register = (req, res) => {
+        const newUser = req.body;
+        if (!userModel.findUserByUsername(newUser.username)) {
+            console.log('duplicate');
+            res.send(null);
+        } else {
+            userModel.registerUser(newUser)
+                .then( user => req.session['currentUser'] = user)
+                .then(res.send(req.session))
+        }
+    }
     app.get ('/currentUser', currentUser);
     app.get ('/api/user', findAllUsers);
     app.post('/login', login);
+    app.post('/register', register)
 };

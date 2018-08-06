@@ -19,9 +19,28 @@ enroll = (userId, sectionId) =>
             user.sections.push(sectionId);
             return user.save();
         })
+sectionEdit = section => {
+    // console.log(section);
+    var oldSection;
+    sectionModel.find({_id: section._id})
+        .then(sec => oldSection = sec);
+    console.log(sectionModel.find());
+    console.log(oldSection)
+    // oldSection.title = section.title;
+    // oldSection.capacity = section.capacity;
+    // console.log(oldSection);
+    // return userModel.save(oldSection);
+
+}
+deleteSection = section => {
+    sectionModel.remove({title: section.title})
+        .then(() => res.sendStatus(200));
+}
 
 module.exports = {
     createSection,
+    sectionEdit,
+    deleteSection,
     enroll,
     findSectionsForCourse,
     findAllSections
