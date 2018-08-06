@@ -4,4 +4,7 @@ module.exports = mongoose.Schema({
     password: String,
     firstName: String,
     lastName: String,
+    sections: [
+        {type: mongoose.Schema.Types.ObjectId,
+            ref: 'SectionModel'}]
 }, {collection: 'user'});
