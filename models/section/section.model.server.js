@@ -37,11 +37,36 @@ deleteSection = section => {
         .then(() => res.sendStatus(200));
 }
 
+findSectionById = sectionId =>
+    sectionModel.find({_id: sectionId})
+decrement = section => {
+    sectionModel.update({_id: section._id}, {
+        title: section.title,
+        capacity: section.capacity - 1,
+        courseId: section.courseId
+    });
+    return sectionModel.find({_id: section._id}).capacity;
+}
+
+increment = section => {
+    sectionModel.update({_id: section._id}, {
+        title: section.title,
+        capacity: section.capacity + 1,
+        courseId: section.courseId
+    });
+    return sectionModel.find({_id: section._id}).capacity;
+}
+
+
+
 module.exports = {
     createSection,
     sectionEdit,
+    findSectionById,
     deleteSection,
     enroll,
     findSectionsForCourse,
-    findAllSections
+    findAllSections,
+    decrement,
+    increment
 };

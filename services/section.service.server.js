@@ -43,8 +43,14 @@ module.exports = app => {
     sectionDelete = (req, res) =>
         sectionModel.deleteSection(req.body);
 
+    getSectionById = (req, res) => sectionModel.findSectionById(req.params['id'])
+        .then(section => res.send(section))
+
+
+
     app.delete('/api/section', sectionDelete)
-    app.put('/api/section', sectionEdit)
+    app.put('/api/section', sectionEdit);
+    app.get('/api/section/:id', getSectionById);
     app.put('/api/section/:sectionId/enroll', sectionEnroll)
     app.get('/api/section', findAllSections)
     app.get('/api/course/:cid/section', findSectionsForCourse)
