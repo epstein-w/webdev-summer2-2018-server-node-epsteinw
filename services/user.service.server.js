@@ -20,14 +20,24 @@ module.exports = app => {
 
     currentUser = (req, res) => {
         const currentUser = req.session['currentUser'];
-        console.log("U:" + currentUser.username);
+        console.log("U:" + currentUser);
 
         if(currentUser) {
-            userModel.findUserByUsername(currentUser.username)
-                .then((foundUser) => {
-                    console.log(foundUser)
-                    res.send(foundUser);
+            userModel.findUserByIdExpanded(currentUser._id)
+                .then(u => {
+                    console.log(u);
+                    res.send(u);
                 })
+            // userModel.findUserByUsername(currentUser.username)
+            //     .then((foundUser) => {
+            //         console.log(foundUser);
+            //         userModel.findUserByIdExpanded(foundUser._id)
+            //             .then(u => {
+            //                 console.log(u[0].sections[0]);
+            //                 res.send(u);
+            //             })
+            //         // res.send(foundUser);
+            //     })
             // userModel.findUserByUsername(currentUser.usernamme)
             //     .then(user => findUserByIdExpanded(user._id)
             //         .then(suser => {
@@ -78,12 +88,18 @@ module.exports = app => {
 
     updateProfile = (req, res) => {
         var curUser = req.session['currentUser'];
+
         var nextUser = req.body;
+        console.log(nextUser);
         if (curUser) {
+            console.log('we exist');
             userModel.findUserByUsername(curUser.username)
                 .then(user => {
+                    console.log(user.username);
                     userModel.updateUser(user, nextUser)
-                        .then( t => res.send(t));
+                        .then( t => {
+                            res.send(t)
+                        });
 
                 })
         } else {

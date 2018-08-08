@@ -20,6 +20,11 @@ findUserByIdExpanded = userId =>
         .findById(userId)
         .populate('sections')
         .exec()
+        .then(p => {
+            console.log('fubiE: ' + p);
+            return p;
+        });
+
 registerUser = user =>
     userModel.create(user)
         .then(() => findUserByUsername(user.username))
@@ -32,7 +37,7 @@ updateUser = (past, next) => {
         lastName: next.lastName,
         sections: next.sections
     }, function (err, affected, resp) {
-        console.log(rest);
+        console.log(resp);
     }));
 };
 

@@ -9,7 +9,15 @@ createSection = section =>
     sectionModel.create(section);
 
 findSectionsForCourse = cid =>
-    sectionModel.find({courseId: cid});
+    sectionModel.find({courseId: cid})
+        .then(t => {
+            var s;
+            t.forEach(function(e) {
+                sectionModel.find({})
+            })
+            return t;
+        });
+
 
 findAllSections = () =>
     sectionModel.find();
