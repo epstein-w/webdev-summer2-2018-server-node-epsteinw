@@ -29,4 +29,4 @@ userService(app);
 const sectionService = require('./services/section.service.server');
 sectionService(app);
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
