@@ -26,12 +26,18 @@ addQuestion = (quizId, questionId) =>
         $push: {questions: questionId}
     })
 
+addSubmission = (quizId, submission) =>
+    quizModel.update({_id: quizId}, {
+        $push: {submissions: submission}
+    })
+
+
 module.exports = {
     createQuiz,
     findAllQuizzes,
     findQuizById,
     updateQuiz,
     deleteQuiz,
-    addQuestion
-
+    addQuestion,
+    addSubmission
 }
