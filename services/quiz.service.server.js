@@ -24,9 +24,18 @@ module.exports = app => {
     }
 
 
+    addQuestion = (req, res) => {
+        quizModel.addQuestion(req.params.qid, req.params.questionId)
+            .then(
+                status => res.send(status),
+                error => res.send(error)
+            )
+    }
+
     app.post('/api/quiz', createQuiz);
     app.get('/api/quiz', findAllQuizzes);
     app.get('/api/quiz/:qid', findQuizById);
     app.put('/api/quiz/:qid', updateQuiz);
-    app.delete('/api/quiz/:qid', deleteQuiz)
+    app.delete('/api/quiz/:qid', deleteQuiz);
+    app.put('/api/quiz/:qid/question/:questionId', addQuestion)
 }

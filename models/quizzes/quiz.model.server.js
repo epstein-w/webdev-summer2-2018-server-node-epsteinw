@@ -10,6 +10,8 @@ findAllQuizzes = () =>
 
 findQuizById = quizId =>
     quizModel.findById(quizId)
+        .populate('questions')
+        .exec()
 
 updateQuiz = (quizId, quiz) =>
     quizModel.update({_id: quizId}, {
@@ -19,11 +21,17 @@ updateQuiz = (quizId, quiz) =>
 deleteQuiz = quizId =>
     quizModel.remove({_id: quizId})
 
+addQuestion = (quizId, questionId) =>
+    quizModel.update({_id: quizId}, {
+        $push: {questions: questionId}
+    })
+
 module.exports = {
     createQuiz,
     findAllQuizzes,
     findQuizById,
     updateQuiz,
-    deleteQuiz
+    deleteQuiz,
+    addQuestion
 
 }
