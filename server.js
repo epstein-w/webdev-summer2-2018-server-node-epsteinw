@@ -29,4 +29,7 @@ userService(app);
 const sectionService = require('./services/section.service.server');
 sectionService(app);
 
+require('./services/quiz.service.server')(app)
+require('./services/question.service.server')(app);
+
 app.listen(process.env.PORT || 3000)
